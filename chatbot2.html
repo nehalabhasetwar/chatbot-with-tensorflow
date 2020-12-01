@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatBot</title>
+    <style>
+
+        *{
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Fira Code';
+}
+body{
+    height: 100%;
+    background: #95a5a6;
+}
+.chat-box{
+    position: absolute;
+    right: 20px;
+    bottom: 0px;
+    background: white;
+    width: 300px;
+    border-radius: 5px 5px 0px 0px;
+}
+.chat-head{
+    width: inherit;
+    height: 45px;
+    background: #2c3e50;
+    border-radius: 5px 5px 0px 0px;
+}
+.chat-head h2{
+    color: white;
+    padding: 8px;
+    display: inline-block;
+}
+.chat-head img{
+    cursor: pointer;
+    float: right;
+    width: 25px;
+    margin: 10px;
+}
+.chat-body{
+    height: 455px;
+    width: inherit;
+    overflow: auto;
+    margin-bottom: 45px;
+}
+.chat-text{
+    position: fixed;
+    bottom: 0px;
+    height: 45px;
+    width: inherit;
+}
+.chat-text textarea{
+    width: inherit;
+    height: inherit;
+    box-sizing: border-box;
+    border: 1px solid #bdc3c7;
+    padding: 5px;
+    resize: none;
+}
+.chat-text textarea:active, .chat-text textarea:focus, .chat-text textarea:hover{
+    border-color: royalblue;
+}
+.msg-send{
+    background: #2ecc71;
+}
+.msg-receive{
+    background: #3498db;
+}
+.msg-send, .msg-receive{
+    width: 200px;
+    height: auto;
+    padding: 2px 2px 2px 5px;
+    margin: 10px auto;
+    border-radius: 3px;
+    line-height: 20px;
+    position: relative;
+    color: white;
+}
+.msg-receive:before{
+    content: '';
+    width: 0px;
+    height: auto;
+    position: absolute;
+    border: 15px solid;
+    border-color: transparent transparent transparent transparent;
+    left: -29px;
+    top: 7px;
+}
+.msg-send:after{
+    content: '';
+    width: 0px;
+    height: auto;
+    position: absolute;
+    border: 15px solid;
+    border-color: transparent transparent transparent transparent;
+    right: -29px;
+    top: 7px;
+}
+.msg-receive:hover, .msg-send:hover{
+    opacity: .9;
+}
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <meta http-equiv="refresh" content="20">
+
+<script>
+
+      $(function(){
+    var arrow = $('.chat-head img');
+    var textarea = $('.chat-text textarea');
+    var temp=[];
+    temp=$('div.msg-receive').change();
+    arrow.on('click', function(){
+        var src = arrow.attr('src');
+
+        $('.chat-body').slideToggle('fast');
+        if(src == 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png'){
+            arrow.attr('src', 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_up-16.png');
+        }
+        else{
+            arrow.attr('src', 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png');
+        }
+    });
+
+    textarea.keypress(function(event) {
+
+
+        var $this = $(this);
+
+        if(event.keyCode == 13){
+            var msg = $this.val();
+            var prevmsg= temp[temp.length-1].innerText;
+            var arr=[msg,prevmsg];
+            $this.val('');
+            $('.msg-insert').append("<div class='msg-send'>"+msg+"</div>");
+
+             $.ajax ({
+             type: "POST",
+             url: "{{url_for('chatter')}}",
+             dataType: 'jsonp',
+             data:  JSON.stringify(arr),
+             contentType: 'application/json',
+
+      });
+         }
+
+
+       });
+});
+
+
+</script>
+
+</head>
+<body>
+    <div class="wrapper" >
+        <div class="chat-box">
+            <div class="chat-head">
+                <h2>Chat Box</h2>
+                <img src="https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png" title="Expand Arrow" width="16">
+            </div>
+            <div class="chat-body" >
+                <div class="msg-insert"  >
+
+                    {% for dat in data%}
+                        {% if dat['name']=='Bot'%}
+                               <div class="msg-receive"  >{{dat['text']}}
+                                  {% if dat['link'] != '' %}
+                                     <p> <a href= {{dat['link']}} , target="_blank">click to download document</a> </p>
+                                   {% endif %}
+                                   {%if dat['list'] != '' %}
+                                     <div id="checkbox-container">
+                                         {% if dat['list']|length == 0 %}
+                                                 sorry! , employee not found
+                                         {% elif dat['list']|length == 1 %}
+                                            {%for key,value in dat['list'].items() %}
+                                                Name: {{value}} , Id: {{key}}
+                                            {% endfor %}
+
+                                         {% else %}
+                                             choose correct match:
+                                             {% for key,value in dat['list'].items() %}
+                                                <div>
+                                                    <input type="radio" id={{key}} name={{value}} onclick=myFunction(id,name) >
+                                                    <label for={{key}}> {{value}} </label><br>
+                                                </div>
+                                             {% endfor %}
+                                         {% endif %}
+                                     </div>
+                                   {% endif %}
+
+                               </div>
+                            {% else %}
+                               <div class="msg-send"> {{dat['text']}}  </div>
+                         {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="chat-text">
+                    <textarea type="text" placeholder="Send" name="quest" id="quest" > </textarea>
+                </div>
+            </div>t
+        </div>
+    </div>
+
+<script>
+    function myFunction(id,name) {
+
+          $('.msg-insert').append("<div class='msg-receive'>"+"Name:"+name+" "+"Id:"+id+"</div>");
+        }
+</script>
+
+
+
+
+
+</body>
+</html>

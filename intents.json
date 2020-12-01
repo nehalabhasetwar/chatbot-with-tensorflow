@@ -1,0 +1,186 @@
+{
+	"intents":[
+		{
+			"tag":"emplyeeid",
+			"patterns":["can I see the employee details?",
+						"employee table",
+						"show me employee list",
+						"tell me about your employees",
+						"list all the employees",
+				        "give me emp id of",
+				        "give me employee id of",
+				        "id of",
+				        "emp id of",
+				        "employee id of",
+						"what is employee id of",
+						"emp # of"
+				]
+		},
+		{
+			"tag":"greet",
+			"patterns":["Hi",
+						"How are you", 
+						"Is anyone there?", 
+						"Hello", "Good day",
+						"How’s your day going?",
+						"Hey","Good morning",
+						"Good afternoon",
+						"Good evening"
+					]
+
+		},
+		{
+			"tag":"thank",
+			"patterns":["Thank you so much.",
+						"Thank you very much.",
+						"I appreciate your help",
+						"I sincerely appreciate",
+						"My thanks and appreciation.",
+						"Please accept my deepest thanks."
+
+				]
+		},
+		{
+			"tag":"employee->technology",
+			"patterns":[
+				"find the employee who work for",
+				"employee working for",
+				"employee working under",
+                "list of employees working for"
+			]
+		},
+		{
+			"tag":"manager->employee",
+			"patterns":[
+				        "List all the employee's under this employer",
+						"Find the employee who works for",
+						"Give me the names of all the emplyees whoes manager is",
+						"Find all employee's under this manager",
+						"can you find me the names of the employees working for this manager",
+						"Find all employees under manager",
+						"all employees working under",
+						"list of employee who's manager is"
+
+
+				]
+		},
+		{
+			"tag":"employee->contact",
+			"patterns":[
+				        "what is phone no of?",
+						"what is mobile no of",
+						"what is contact of",
+				        "tell me telephone number of",
+				        "give me contact of",
+				        "phone no of",
+						"mobile no of",
+						"contact of"
+				]
+		},
+		{
+			"tag":"employee->update-details",
+			"patterns":[
+				        "update the phone no of to",
+						"update the mobile no of to",
+						"update the contact of to",
+				        "update the telephone number of to",
+				        "kindly update contact of",
+				        "kindly update phone no of",
+						"kindly update mobile no of",
+						"kindly update contact of"
+				]
+		},
+		{
+			"tag":"employee->manager",
+			"patterns":["who is the manager of employee",
+				   "find the manager of",
+				   "who is the manager of",
+				   "find manager",
+				   "get me the manager id of"
+
+			]
+		},
+		{
+			"tag":"employee->address",
+			"patterns":[
+				        "find all employees from this address",
+						"get all employee from this address",
+						"apply a employee search with address filter",
+						" employee who stays at address",
+						"employee who lives in",
+						"list of employees staying at",
+				        "employee located at",
+				        "list of employees staying at"
+				]
+		},
+		{
+			"tag": "employee->details",
+			"patterns": [
+				"get asset id of",
+				"asset id of",
+				"give me asset id of",
+				"give the asset id of",
+				"what is asset id of"
+			]
+		},
+		{
+			"tag": "employee->branch",
+			"patterns": [
+						"branch of",
+						"what is branch of",
+				        "tell me the branch of",
+						"give me branch of"
+			]
+		},
+		{
+			"tag": "employee->location",
+			"patterns": [
+						"location of",
+						"what is location of"
+			]
+		},
+		{
+			"tag": "employee->model",
+			"patterns": [
+						"make and model of",
+						"what is make and model of",
+						"give me make and model of",
+						"tell me make and model of"
+			]
+		},
+		{
+			"tag": "employee->workingmode",
+			"patterns": [
+						"BCP working mode of",
+						"give me BCP working mode of",
+						"what is BCP working mode of"
+			]
+		},
+		{
+			"tag":"employee->post",
+			"patterns":["find all employees working on this project",
+						"get all employee at this post",
+						"apply a employee search with designation filter",
+						" employee designated at",
+						"employee who works at post",
+						"all employees who works on this platform",
+						"all employees with this designation",
+                        "employee who work as"
+				]
+		},
+		{
+			"tag":"income->employee",
+			"patterns":["find all employees working with these pay grade",
+						"get all employee with this income",
+						"apply a employee search with income filter",
+						"employee who earns more than",
+						"employee who earns less than",
+						"employee who are paid",
+						"all employees payment greater than",
+						"all employees payment less than",
+						"all employees with this paygrade"
+
+				]
+		}
+	]
+}

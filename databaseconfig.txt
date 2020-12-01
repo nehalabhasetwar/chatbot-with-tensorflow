@@ -1,0 +1,18 @@
+1.Navigate to folder location and enter python shell
+	$ python
+
+2. To create initial database , Import db object from our backend file  
+	>>> from backend import db
+
+3. Run create_all() method to create tables and databases.
+	>>> db.create_all()
+
+4. database is created , now to create tables
+	>>> from backend import Employee , Asset
+
+5. Our tables are created , Now to access data in database
+	>>> db.query.all()
+
+	
+
+To import data in database , we can directly import using "sqlitestudio" tool for sqlite.
